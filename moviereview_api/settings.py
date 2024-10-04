@@ -9,7 +9,6 @@ https://docs.djangoproject.com/en/5.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
-from decouple import config
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -25,7 +24,7 @@ SECRET_KEY = "django-insecure-vonajl4wa47pq=m(t4bj5v=hijm_ku#@kecz88pu7n!=p)q!$q
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["dudunee.pythonanywhere.com", "localhost", "127.0.0.1"]
 
 
 # Application definition
@@ -82,13 +81,17 @@ WSGI_APPLICATION = "moviereview_api.wsgi.application"
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': config('DB_NAME'),
-        'USER': config('DB_USER'),
-        'PASSWORD': config('DB_PASSWORD'),
-        'HOST': config('DB_HOST', default='localhost'),
-        'PORT': config('DB_PORT', default='3306'),
+        'NAME': 'dudunee$default',
+        'USER': 'dudunee',
+        'PASSWORD': 'Alt@@12345',
+        'HOST': 'dudunee.mysql.pythonanywhere-services.com',
+        'PORT': '3306',
+        'OPTIONS': {
+'init_command': 'SET sql_mode="STRICT_TRANS_TABLES"'
+}
     }
 }
+
 
 
 # Password validation
@@ -133,7 +136,7 @@ STATIC_URL = "static/"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 
-AUTH_USER_MODEL = 'users.User' 
+AUTH_USER_MODEL = 'users.User'
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
