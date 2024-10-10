@@ -26,6 +26,31 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["dudunee.pythonanywhere.com", "localhost", "127.0.0.1"]
 
+# Helps protect against XSS
+SECURE_BROWSER_XSS_FILTER = True
+
+# Prevents clickjacking by disallowing iframe embedding
+X_FRAME_OPTIONS = 'DENY'
+
+# Prevents browser from guessing the content type
+SECURE_CONTENT_TYPE_NOSNIFF = True
+
+# Ensures that CSRF cookies are only sent via HTTPS
+CSRF_COOKIE_SECURE = True
+
+# Ensures that session cookies are only sent via HTTPS
+SESSION_COOKIE_SECURE = True
+
+# Redirect HTTP requests to HTTPS
+SECURE_SSL_REDIRECT = True
+
+CSP_DEFAULT_SRC = ["'self'"]  # Only allow resources from your own domain
+CSP_SCRIPT_SRC = ["'self'",]  # Allow scripts from self and trusted domains
+CSP_STYLE_SRC = ["'self'",]  # Allow styles from self and trusted domains
+CSP_IMG_SRC = ["'self'",]  # Allow images from self and trusted domains
+CSP_OBJECT_SRC = ["'none'"]  # Block all Flash and other objects
+
+
 
 # Application definition
 
@@ -51,6 +76,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "csp.middleware.CSPMiddleware"
 ]
 
 ROOT_URLCONF = "moviereview_api.urls"
@@ -135,9 +161,10 @@ STATIC_URL = "static/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-
+# Custom User model
 AUTH_USER_MODEL = 'users.User'
 
+#REST Framework settings
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
@@ -145,11 +172,11 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticatedOrReadOnly',
     ),
-    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 2,
 }
 
-
+#JWT settings
 from datetime import timedelta
 
 SIMPLE_JWT = {
