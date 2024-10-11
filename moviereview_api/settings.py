@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/5.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
+
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -22,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-vonajl4wa47pq=m(t4bj5v=hijm_ku#@kecz88pu7n!=p)q!$q"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ["dudunee.pythonanywhere.com", "localhost", "127.0.0.1"]
 
@@ -30,7 +31,7 @@ ALLOWED_HOSTS = ["dudunee.pythonanywhere.com", "localhost", "127.0.0.1"]
 SECURE_BROWSER_XSS_FILTER = True
 
 # Prevents clickjacking by disallowing iframe embedding
-X_FRAME_OPTIONS = 'DENY'
+X_FRAME_OPTIONS = "DENY"
 
 # Prevents browser from guessing the content type
 SECURE_CONTENT_TYPE_NOSNIFF = True
@@ -45,11 +46,16 @@ SESSION_COOKIE_SECURE = True
 SECURE_SSL_REDIRECT = True
 
 CSP_DEFAULT_SRC = ["'self'"]  # Only allow resources from your own domain
-CSP_SCRIPT_SRC = ["'self'",]  # Allow scripts from self and trusted domains
-CSP_STYLE_SRC = ["'self'",]  # Allow styles from self and trusted domains
-CSP_IMG_SRC = ["'self'",]  # Allow images from self and trusted domains
+CSP_SCRIPT_SRC = [
+    "'self'",
+]  # Allow scripts from self and trusted domains
+CSP_STYLE_SRC = [
+    "'self'",
+]  # Allow styles from self and trusted domains
+CSP_IMG_SRC = [
+    "'self'",
+]  # Allow images from self and trusted domains
 CSP_OBJECT_SRC = ["'none'"]  # Block all Flash and other objects
-
 
 
 # Application definition
@@ -61,11 +67,11 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    'reviews.apps.ReviewsConfig',
-    'users.apps.UsersConfig',
-    'rest_framework',
-    'rest_framework_simplejwt',
-    'django_filters',
+    "reviews.apps.ReviewsConfig",
+    "users.apps.UsersConfig",
+    "rest_framework",
+    "rest_framework_simplejwt",
+    "django_filters",
 ]
 
 MIDDLEWARE = [
@@ -76,7 +82,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    "csp.middleware.CSPMiddleware"
+    "csp.middleware.CSPMiddleware",
 ]
 
 ROOT_URLCONF = "moviereview_api.urls"
@@ -105,19 +111,16 @@ WSGI_APPLICATION = "moviereview_api.wsgi.application"
 
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'dudunee$default',
-        'USER': 'dudunee',
-        'PASSWORD': 'Alt@@12345',
-        'HOST': 'dudunee.mysql.pythonanywhere-services.com',
-        'PORT': '3306',
-        'OPTIONS': {
-'init_command': 'SET sql_mode="STRICT_TRANS_TABLES"'
-}
+    "default": {
+        "ENGINE": "django.db.backends.mysql",
+        "NAME": "dudunee$default",
+        "USER": "dudunee",
+        "PASSWORD": "Alt@@12345",
+        "HOST": "dudunee.mysql.pythonanywhere-services.com",
+        "PORT": "3306",
+        "OPTIONS": {"init_command": 'SET sql_mode="STRICT_TRANS_TABLES"'},
     }
 }
-
 
 
 # Password validation
@@ -162,25 +165,24 @@ STATIC_URL = "static/"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # Custom User model
-AUTH_USER_MODEL = 'users.User'
+AUTH_USER_MODEL = "users.User"
 
-#REST Framework settings
+# REST Framework settings
 REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
     ),
-    'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticatedOrReadOnly',
+    "DEFAULT_PERMISSION_CLASSES": (
+        "rest_framework.permissions.IsAuthenticatedOrReadOnly",
     ),
-    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 2,
+    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
+    "PAGE_SIZE": 2,
 }
 
-#JWT settings
+# JWT settings
 from datetime import timedelta
 
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),
-    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=60),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
 }
-

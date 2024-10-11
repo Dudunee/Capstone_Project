@@ -6,15 +6,21 @@ from .serializers import ReviewSerializer
 from django_filters import rest_framework as django_filters
 from rest_framework.pagination import PageNumberPagination
 
+
 class ReviewFilter(django_filters.FilterSet):
     """
     Filter for filtering reviews by movie title or rating.
     """
-    movie_title = django_filters.CharFilter(field_name='movie_title', lookup_expr='icontains')
+
+    movie_title = django_filters.CharFilter(
+        field_name="movie_title", lookup_expr="icontains"
+    )
     rating = django_filters.RangeFilter()
+
     class Meta:
         model = Review
-        fields = ['movie_title', 'rating']
+        fields = ["movie_title", "rating"]
+
 
 class ReviewViewSet(viewsets.ModelViewSet):
     """
@@ -22,13 +28,14 @@ class ReviewViewSet(viewsets.ModelViewSet):
     Filters reviews by movie title and rating, and orders by creation date or rating.
     Only the creator of a review can modify or delete it.
     """
+
     queryset = Review.objects.all()
     serializer_class = ReviewSerializer
     permission_classes = [IsAuthenticated]
     filter_backends = (django_filters.DjangoFilterBackend, filters.OrderingFilter)
     filterset_class = ReviewFilter
-    ordering_fields = ['created_at', 'rating']
-    ordering = ['-rating']
+    ordering_fields = ["created_at", "rating"]
+    ordering = ["-rating"]
     pagination_class = PageNumberPagination
 
     def perform_create(self, serializer):
