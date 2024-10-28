@@ -4,6 +4,9 @@ from .models import User
 from .serializers import UserSerializer
 
 class UserViewSet(viewsets.ModelViewSet):
+    """
+    A viewset that provides actions to create, retrieve, update, and delete users.
+    """
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
