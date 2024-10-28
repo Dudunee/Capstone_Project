@@ -1,3 +1,4 @@
+asgiref==3.8.1
 black==24.8.0
 click==8.1.7
 colorama==0.4.6
@@ -14,6 +15,10 @@ pathspec==0.12.1
 pillow==10.4.0
 platformdirs==4.2.2
 PyJWT==2.9.0
+PyMySQL==1.1.1
+python-decouple==3.8
 python-dotenv==1.0.1
 sqlparse==0.5.1
+tomli==2.0.2
+typing_extensions==4.12.2
 tzdata==2024.1
